@@ -22,7 +22,8 @@ My zombie map
 <div id="zombie_map"></div>
 <script>
 	var zombie_map;
-
+	var tolerance = 10;
+	var count =0;
 
 	var data = `-33.327832145332195 115.63207894708252 zombie.png name
 	-33.32804280795526 115.63323229695892 zombie.png name
@@ -36,7 +37,7 @@ My zombie map
 
 	var markers = data.split("\n");
 	var all_markers=[];
-	var count =0;
+	
 
 
 	function initMap() {
@@ -69,6 +70,17 @@ console.log(pos);
 
 old_position = marker;
 
+for (var i=0; i<call_markers.length; i++) {
+var distance = google.maps.geometry.spherical.computerDistanceBetween(pos, all_markers[i].getPosition());
+
+if (distance <tolerance ){
+alert("found it!")
+}
+}
+
+}
+
+
 	if (count<1) {
 	for (var i=0; i< markers.length; i++) {
 	var marker_data = markers[i].trim().split(" ");
@@ -99,7 +111,7 @@ old_position = marker;
 <script async defer
  src
 ="https://maps.googleapis.com/maps/api/js?key=AIzaSyB23BaEfee
-EEoW05pceu4wjWqBYE5um_sk&callback=initMap">
+EEoW05pceu4wjWqBYE5um_sk&callback=initMap&libraries=geometry">
  </script>
 
 
